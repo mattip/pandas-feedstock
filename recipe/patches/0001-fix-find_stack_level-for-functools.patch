@@ -1,0 +1,23 @@
+From 437bdeee1715c399f1ab820b247b4fa6391734f7 Mon Sep 17 00:00:00 2001
+From: mattip <matti.picus@gmail.com>
+Date: Thu, 10 Aug 2023 01:56:28 +0300
+Subject: [PATCH] fix find_stack_level for functools
+
+---
+ pandas/util/_exceptions.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pandas/util/_exceptions.py b/pandas/util/_exceptions.py
+index f300f2c52f..2235d35392 100644
+--- a/pandas/util/_exceptions.py
++++ b/pandas/util/_exceptions.py
+@@ -43,7 +43,8 @@ def find_stack_level() -> int:
+     n = 0
+     while frame:
+         fname = inspect.getfile(frame)
+-        if fname.startswith(pkg_dir) and not fname.startswith(test_dir):
++        if fname.endswith("functools.py") or (
++                fname.startswith(pkg_dir) and not fname.startswith(test_dir)):
+             frame = frame.f_back
+             n += 1
+         else:
