@@ -67,7 +67,7 @@ test:
     - pip
     - pytest >=6.0
     - pytest-asyncio >=0.17
-    - pytest-xdist >=1.31
+    - pytest-xdist >=1.31  # [python_impl == "cpython"]
     - pytest-cov  # [python_impl == "cpython"]
     - boto3
     - hypothesis
